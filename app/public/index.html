@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="shopApp">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="NavBarCtrl">
+		<div class="navbar-header">
+			<a href="#" class="navbar-brand">shopping</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="#/home" title="首页">首页</a></li>
+			<li><a href="#/users" title="注册">注册</a></li>
+			<li><a href="#/login" title="登陆">登陆</a></li>
+		</ul>
+	</nav>
+	<div class="row" ng-view></div>
+</body>
+<script src="lib/jquery/dist/jquery.js"></script>
+<script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular-route/angular-route.js"></script>
+<script>
+	var app = angular.module('shopApp',['ngRoute']);
+	app.config(function($routeProvider,$locationProvider){
+		$routeProvider.when('/home',{
+			templateUrl : 'pages/home.html',
+			controller : 'HomeCtrl'
+		}).otherwise({
+			redirectTo : '/'
+		});
+	});
+
+	app.controller('HomeCtrl', ['$scope', function($scope){
+		$scope.title = "my shopping";
+	}]);
+
+	app.controller('NavBarCtrl', ['$scope', function($scope){
+		
+	}]);
+</script>
+</html>
