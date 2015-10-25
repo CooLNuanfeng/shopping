@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<title>首页</title>
 	<link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+	<style>
+		body{padding-top: 70px;}
+	</style>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="NavBarCtrl">
@@ -12,11 +15,11 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li><a href="#/home" title="首页">首页</a></li>
-			<li><a href="#/users" title="注册">注册</a></li>
-			<li><a href="#/login" title="登陆">登陆</a></li>
+			<li><a href="#/users/reg" title="注册">注册</a></li>
+			<li><a href="#/users/login" title="登陆">登陆</a></li>
 		</ul>
 	</nav>
-	<div class="row" ng-view></div>
+	<div class="rows" ng-view></div>
 </body>
 <script src="lib/jquery/dist/jquery.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -28,6 +31,12 @@
 		$routeProvider.when('/home',{
 			templateUrl : 'pages/home.html',
 			controller : 'HomeCtrl'
+		}).when('/users/reg',{
+			templateUrl : 'pages/user/reg.html',
+			controller : 'RegCtrl'
+		}).when('/users/login',{
+			templateUrl : 'pages/user/login.html',
+			controller : 'LoginCtrl'
 		}).otherwise({
 			redirectTo : '/'
 		});
@@ -35,6 +44,35 @@
 
 	app.controller('HomeCtrl', ['$scope', function($scope){
 		$scope.title = "my shopping";
+	}]);
+
+	app.controller('RegCtrl', ['$scope','$http','$location', function($scope,$http,$location){
+		$scope.save = function(){
+			console.log('saving');
+			$http({
+				url : '/users/login',
+				method : 'POST',
+				data : $scope.user
+			}).success(function(user){
+				$location.path('/users/login');
+			}).error(function(data) {
+				$location.path('/users/reg');		
+			});
+		};
+	}]);
+
+	app.controller('LoginCtrl', ['$scope','$http','$location', function($scope,$http,$location){
+			console.log('login-saving');
+			$http({
+				url : '/users/login',
+				method : 'POST',
+				data : $scope.user
+			}).success(function(user){
+				$location.path('/home');
+			}).error(function(data) {
+				//$location.path('/users/reg');	
+			});
+
 	}]);
 
 	app.controller('NavBarCtrl', ['$scope', function($scope){

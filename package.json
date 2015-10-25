@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/CooLNuanfeng/shopping#readme",
   "dependencies": {
-    "express": "^4.13.3"
+    "body-parser": "^1.14.1",
+    "crypto": "0.0.3",
+    "express": "^4.13.3",
+    "mongoose": "^4.2.2"
   }
 }
